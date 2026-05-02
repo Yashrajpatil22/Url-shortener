@@ -72,17 +72,43 @@ const getClicks = async (req, res) => {
 };
 
 const deleteShortCode = async (req, res) => {
-    const { shortCode } = req.params;
-    try{
-        const url = await Url.findOne({shortCode})
-        if(!url){
-            return res.status(404).json({message: "Short code not found"})
-        }
-        await Url.deleteOne({shortCode})
-        return res.status(200).json({message: "short code deleted successfully"})
-    } catch(error){
-        return res.status(500).json({message: "Failed to delete short code"})
+  const { shortCode } = req.params;
+  try {
+    const url = await Url.findOne({ shortCode });
+    if (!url) {
+      return res.status(404).json({ message: "Short code not found" });
     }
-}
+    await Url.deleteOne({ shortCode });
+    return res.status(200).json({ message: "short code deleted successfully" });
+  } catch (error) {
+    return res.status(500).json({ message: "Failed to delete short code" });
+  }
+};
 
-export { createShortCode, redirectToOriginalUrl, getClicks, deleteShortCode };
+const updateOriginalUrl = async (req, res) => {
+  const { shortCode } = req.params;
+  const { newOriginalUrl } = req.body;
+  if (!newOriginalUrl || newOriginalUrl.trim() === "") {
+    return res.status(400).json({ error: "Original URL is required" });
+  }
+  try {
+    const url = await Url.findOne({ shortCode });
+    if (!url) {
+      return res.status(404).json({ message: "Short code now found" });
+    }
+    url.originalUrl = newOriginalUrl;
+    await url.save();
+    // const newUrl = await Url.findOne({ shortCode });
+    return res.status(200).json({ message: "Url updated successfully", url });
+  } catch (error) {
+    return res.status(500).json({ message: "Failed to update original url" });
+  }
+};
+
+export {
+  createShortCode,
+  redirectToOriginalUrl,
+  getClicks,
+  deleteShortCode,
+  updateOriginalUrl,
+};
