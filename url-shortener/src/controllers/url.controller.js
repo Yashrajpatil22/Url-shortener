@@ -71,4 +71,18 @@ const getClicks = async (req, res) => {
   }
 };
 
-export { createShortCode, redirectToOriginalUrl, getClicks };
+const deleteShortCode = async (req, res) => {
+    const { shortCode } = req.params;
+    try{
+        const url = await Url.findOne({shortCode})
+        if(!url){
+            return res.status(404).json({message: "Short code not found"})
+        }
+        await Url.deleteOne({shortCode})
+        return res.status(200).json({message: "short code deleted successfully"})
+    } catch(error){
+        return res.status(500).json({message: "Failed to delete short code"})
+    }
+}
+
+export { createShortCode, redirectToOriginalUrl, getClicks, deleteShortCode };
