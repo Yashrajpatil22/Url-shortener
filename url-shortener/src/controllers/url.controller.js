@@ -51,7 +51,24 @@ const redirectToOriginalUrl = async (req, res) => {
     await shortened.save();
     res.redirect(shortened.originalUrl);
   } catch (error) {
-    return res.status(500).json({ error: "Failed to redirect to original URL" });
+    return res
+      .status(500)
+      .json({ error: "Failed to redirect to original URL" });
   }
 };
-export { createShortCode, redirectToOriginalUrl };
+
+const getClicks = async (req, res) => {
+  const { shortCode } = req.params;
+  try {
+    const url = await Url.findOne({ shortCode });
+    if (!url) {
+      return res.status(404).json({ error: "Invalid short code" });
+    }
+    const click = url.clicks;
+    return res.status(200).json({ clicks: click });
+  } catch (error) {
+    return res.status(500).json({ message: "Failed to retrieve stats" });
+  }
+};
+
+export { createShortCode, redirectToOriginalUrl, getClicks };
