@@ -1,18 +1,19 @@
-﻿# Backend Mini Projects
+A RESTful URL Shortener API built using Node.js, Express.js, and MongoDB.
 
-This repository contains small backend projects built while learning and revising backend development.
+This project allows users to create shortened URLs, redirect to original URLs, track click statistics, update existing URLs, and delete URLs.
 
-## Purpose
+#Features
+Create short URLs
+Redirect users using short URLs
+Track number of clicks
+Get URL statistics
+Update original URLs
+Delete shortened URLs
+RESTful API design
+MongoDB integration using Mongoose
 
-The purpose of this repository is to practice backend concepts by building small projects and to understand how to structure and develop APIs.
-
-## Structure
-
-Each folder represents a separate project.
-
-## Tech Stack
-
-* Node.js
-* Express.js
-* MongoDB / MySQL
-
+#Tech Stack
+Node.js
+Express.js
+MongoDB Atlas
+Mongoose
