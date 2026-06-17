@@ -114,11 +114,28 @@ const getAllUrls = async (req, res) => {
   }
 }
 
+const getOriginalUrlfromShortCode = async (req, res) => {
+  const { shortCode } = req.params;
+  if(!shortCode || shortCode.trim() === ""){
+    return res.status(400).json({ error: "Short code is required" });
+  }
+  try{
+    const url = await Url.findOne({ shortCode });
+    if(!url){
+      return res.status(404).json({ message: "Short code not found" });
+    }
+    return res.status(200).json({ originalUrl: url.originalUrl });
+  }catch(error){
+    return res.status(500).json({ message: "Failed to retrieve original url" });
+  }
+}
+
 export {
   createShortCode,
   redirectToOriginalUrl,
   getClicks,
   deleteShortCode,
   updateOriginalUrl,
-  getAllUrls
+  getAllUrls,
+  getOriginalUrlfromShortCode
 };
