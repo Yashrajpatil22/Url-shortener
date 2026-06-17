@@ -33,7 +33,9 @@ function Dashboard() {
         <h1>Dashboard</h1>
       </div>
       <div className="flex justify-end mr-6">
-      <button className="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white hover:cursor-pointer ">
+      <button className="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white hover:cursor-pointer "
+      onClick={() => navigate('/addurl')}
+      >
         Add URL
       </button>
       </div>
