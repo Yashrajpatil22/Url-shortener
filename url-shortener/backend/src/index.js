@@ -7,13 +7,10 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+app.use(cors());
 app.use("/api/urls", urlRoutes);
 app.get("/:shortCode", redirectToOriginalUrl);
-app.use(cors(
-  {
-    origin: "http://localhost:5173",
-  }
-));
+
 
 app.get("/check", (req, res) => {
   res.send("Hello World");
