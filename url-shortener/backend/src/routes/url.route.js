@@ -3,13 +3,13 @@ import {
   getClicks,
   deleteShortCode,
   updateOriginalUrl,
-  getAllShortCodes
+  getAllUrls
 } from "../controllers/url.controller.js";
 import express from "express";
 
 const router = express.Router();
 
-router.route("/").get(getAllShortCodes);
+router.route("/").get(getAllUrls);
 router.route("/shorten").post(createShortCode);
 router.route("/getStats/:shortCode").get(getClicks);
 router.route("/delete/:shortCode").delete(deleteShortCode);
