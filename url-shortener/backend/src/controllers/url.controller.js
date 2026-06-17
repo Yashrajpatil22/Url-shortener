@@ -105,10 +105,20 @@ const updateOriginalUrl = async (req, res) => {
   }
 };
 
+const getAllUrls = async (req, res) => {
+  try{
+    const shortCodes = await Url.find();
+    return res.status(200).json({ shortCodes });
+  }catch(error){
+    return res.status(500).json({ message: "Failed to retrieve short codes" });
+  }
+}
+
 export {
   createShortCode,
   redirectToOriginalUrl,
   getClicks,
   deleteShortCode,
   updateOriginalUrl,
+  getAllUrls
 };
